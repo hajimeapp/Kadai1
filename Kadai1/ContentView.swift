@@ -8,47 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var box = (box1:"", box2:"", box3:"", box4:"", box5:"")
+    @State var textList = ["", "", "", "", ""]
     @State var sumNumber = 0
     @State var label = "Label"
     var body: some View {
         HStack {
             VStack {
-                TextField("", text: $box.box1, prompt: Text(""))
-                    .padding(10.0)
-                    .keyboardType(.numberPad)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color(hue: 1.0, saturation: 0.016, brightness: 0.898), lineWidth: 2)
-                    )
-                TextField("", text: $box.box2, prompt: Text(""))
-                    .padding(10.0)
-                    .keyboardType(.numberPad)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color(hue: 1.0, saturation: 0.016, brightness: 0.898), lineWidth: 2)
-                    )
-                TextField("", text: $box.box3, prompt: Text(""))
-                    .padding(10.0)
-                    .keyboardType(.numberPad)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color(hue: 1.0, saturation: 0.016, brightness: 0.898), lineWidth: 2)
-                    )
-                TextField("", text: $box.box4, prompt: Text(""))
-                    .padding(10.0)
-                    .keyboardType(.numberPad)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color(hue: 1.0, saturation: 0.016, brightness: 0.898), lineWidth: 2)
-                    )
-                TextField("", text: $box.box5, prompt: Text(""))
-                    .padding(10.0)
-                    .keyboardType(.numberPad)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color(hue: 1.0, saturation: 0.016, brightness: 0.898), lineWidth: 2)
-                    )
+                ForEach(textList.indices, id: \.self) { index in
+                    TextField("", text: $textList[index], prompt: Text(""))
+                        .keyboardType(.numberPad)
+                        .textFieldStyle(.roundedBorder)
+                }
+
                 Button {
                    calculateSum()
                 } label: {
@@ -68,14 +39,13 @@ struct ContentView: View {
     }
     
     func calculateSum() {
-        let value1 = Int(box.box1) ?? 0
-        let value2 = Int(box.box2) ?? 0
-        let value3 = Int(box.box3) ?? 0
-        let value4 = Int(box.box4) ?? 0
-        let value5 = Int(box.box5) ?? 0
+        let value1 = Int(textList[0]) ?? 0
+        let value2 = Int(textList[1]) ?? 0
+        let value3 = Int(textList[2]) ?? 0
+        let value4 = Int(textList[3]) ?? 0
+        let value5 = Int(textList[4]) ?? 0
         sumNumber = value1 + value2 + value3 + value4 + value5
         label = "\(sumNumber)"
-        
     }
 }
 
