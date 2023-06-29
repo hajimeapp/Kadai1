@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var textList = ["", "", "", "", ""]
-    @State var sumNumber = 0
-    @State var label = "Label"
+    @State var sumNumber: Int?
     var body: some View {
         HStack {
             VStack {
@@ -26,8 +25,13 @@ struct ContentView: View {
                     Text("Button")
                 }
                 HStack {
-                    Text(label)
-                        .padding(.top, -5.0)
+                    if let sumNumber = sumNumber {
+                        Text(String(sumNumber))
+                            .padding(.top, -5.0)
+                    } else {
+                        Text("Label")
+                            .padding(.top, -5.0)
+                    }
                     Spacer()
                 }
                 Spacer()
@@ -39,13 +43,11 @@ struct ContentView: View {
     }
     
     func calculateSum() {
-        let value1 = Int(textList[0]) ?? 0
-        let value2 = Int(textList[1]) ?? 0
-        let value3 = Int(textList[2]) ?? 0
-        let value4 = Int(textList[3]) ?? 0
-        let value5 = Int(textList[4]) ?? 0
-        sumNumber = value1 + value2 + value3 + value4 + value5
-        label = "\(sumNumber)"
+        var total = 0
+        for text in textList {
+            total += Int(text) ?? 0
+        }
+        sumNumber = total
     }
 }
 
